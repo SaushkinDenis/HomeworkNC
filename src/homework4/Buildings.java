@@ -38,7 +38,12 @@ public class Buildings {
     }
     
     public static void inputBuilding (InputStream in){
-        System.out.println(in);
+        try {
+            for(int i = 0; i <= in.available(); i++)
+                System.out.print(in.read()+" ");
+        } catch (IOException ex) {
+            Logger.getLogger(Buildings.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public static void writeBuilding (Building building, Writer out){
@@ -100,7 +105,7 @@ public class Buildings {
                         i = 2;
                         floors.add(junction);
                         break;
-                }
+                }  
         }
     in.close();
     return  (Building) building;
@@ -123,6 +128,7 @@ public class Buildings {
     public static Building deserializeBuilding (InputStream in){
         
         Building building = null;
+        
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(in);
             building = (Building) objectInputStream.readObject();

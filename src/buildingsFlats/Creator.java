@@ -1,6 +1,8 @@
 package buildingsFlats;
 
 import static homework4.Buildings.deserializeBuilding;
+import static homework4.Buildings.inputBuilding;
+import static homework4.Buildings.outputBuilding;
 import static homework4.Buildings.serializeBuilding;
 import interfaces.Building;
 import interfaces.Floor;
@@ -8,10 +10,7 @@ import interfaces.Space;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
+
 
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -165,22 +164,33 @@ public class Creator {
 //                System.out.print(ex.getMessage()+ ": ");
 //                System.out.println(ex.getNumberFlat());
 //            }  
-
-       
-
-
+               
         try {FileOutputStream out = new FileOutputStream("out");
-            serializeBuilding(dwelling, out);
+            outputBuilding(dwelling, out);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Creator.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         try {
             FileInputStream fileInputStream = new FileInputStream("out");
-            deserializeBuilding(fileInputStream);
+            inputBuilding(fileInputStream);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Creator.class.getName()).log(Level.SEVERE, null, ex);
         }
+               
+//----------- Сериализация ------------------
+//        try {FileOutputStream out = new FileOutputStream("out");
+//            serializeBuilding(dwelling, out);
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(Creator.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
+//        try {
+//            FileInputStream fileInputStream = new FileInputStream("out");
+//            deserializeBuilding(fileInputStream);
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(Creator.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         
     }
     
