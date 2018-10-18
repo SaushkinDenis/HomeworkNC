@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.io.StreamTokenizer;
@@ -32,7 +34,7 @@ public class Buildings {
             out.close();
         } 
         catch (IOException ex) {
-            System.out.println("Error occurred with stream!");
+            System.out.println(ex.getMessage());
         }
         
     }
@@ -42,27 +44,27 @@ public class Buildings {
             for(int i = 0; i <= in.available(); i++)
                 System.out.print(in.read()+" ");
         } catch (IOException ex) {
-            Logger.getLogger(Buildings.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
     }
     
-    public static void writeBuilding (Building building, Writer out){
+    public static void writeBuilding (Building building, Writer in){
         
         try {
-            out.write(building.getTotalAmountFloor());
+            in.write(building.getTotalAmountFloor());
             
             for(Floor f : building.getMassiveFloors()){
-                out.write(f.getAmountJunctionOnFloor());
+                in.write(f.getAmountJunctionOnFloor());
             
                 for(Space s: f.getMassiveJunction()){
-                   out.write(s.getAmountRoom());
-                   out.write(s.getArea());
+                   in.write(s.getAmountRoom());
+                   in.write(s.getArea());
                 }
             }
-            out.close();
+            in.close();
         } 
         catch (IOException ex) {
-            System.out.println("Error occurred with stream!");
+            System.out.println(ex.getMessage());
         }
     }
     
@@ -121,7 +123,7 @@ public class Buildings {
             objectOutputStream.close();
         } 
         catch (IOException ex) {
-            System.out.println("Error occurred with serializable stream");
+            System.out.println(ex.getMessage());
         }
     }
     
@@ -133,15 +135,35 @@ public class Buildings {
             ObjectInputStream objectInputStream = new ObjectInputStream(in);
             building = (Building) objectInputStream.readObject();
             objectInputStream.close();
+            in.close();
         } catch (IOException ex) {
-            Logger.getLogger(Buildings.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Buildings.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
        return building;
     }
     
-    public static void writeBuidingFormat(Building building, Writer out){
+    public static void writeBuidingFormat(Building building, Writer in){
+
+        try {
+            PrintWriter printStream = new PrintWriter(in);
+            printStream.println(building); 
+            readBuidingFormat(printStream);
+            in.close();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }   
+    }   
     
+    public static void readBuidingFormat(PrintWriter printStream){
+        
+        printStream.printf("%-10s%-10s%-10s%-10s%-10s%-10s%n", "Здание", "Подъезд", "Этаж", "Помещение", "Количество комнат", "Площадь");
+        printStream.printf("%-10d%-10d%-10d%-10d%-10d%-10d%n",1,2,3,4,5,6);
+        
+        printStream.format(format, args);
+        printStream.
+        printStream.printf("Flat: %-10d% Area: -10d% Amount room: -10d%n",printStream.,2,3);
     }
+     
 }
