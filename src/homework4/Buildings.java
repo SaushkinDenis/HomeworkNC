@@ -7,14 +7,11 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
-import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.io.StreamTokenizer;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Buildings {
     
@@ -113,7 +110,6 @@ public class Buildings {
     return  (Building) building;
     }
 
-    
     public static void serializeBuilding (Building building, OutputStream out){
         
         try {
@@ -144,26 +140,22 @@ public class Buildings {
        return building;
     }
     
-    public static void writeBuidingFormat(Building building, Writer in){
+    public static void writeBuidingFormat(Building building, Writer out){
 
-        try {
-            PrintWriter printStream = new PrintWriter(in);
-            printStream.println(building); 
-            readBuidingFormat(printStream);
-            in.close();
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }   
+        writeBuilding(building, out);
+        PrintWriter printStream = new PrintWriter(out);
+        readBuidingFormat(building, printStream);   
     }   
     
-    public static void readBuidingFormat(PrintWriter printStream){
+    public static void readBuidingFormat(Building building, PrintWriter printStream){
         
-        printStream.printf("%-10s%-10s%-10s%-10s%-10s%-10s%n", "Здание", "Подъезд", "Этаж", "Помещение", "Количество комнат", "Площадь");
-        printStream.printf("%-10d%-10d%-10d%-10d%-10d%-10d%n",1,2,3,4,5,6);
+        printStream.printf("%-10s%-10s%-10s%-10s%n", "Этаж", "Помещение", "Количество комнат", "Площадь");
+                
+        for(int j = 1; j <= building.getTotalAmountFloor(); j++){
+            for(int i = 0; i <= building.getMassiveFloors().get(j).getAmountJunctionOnFloor(); i++){
+                printStream.format("Этаж: %d, Помещение: %d, Количество комнат: %d, Площадь: d%n", j, i, building.getMassiveFloors().get(j).getJunction(i).getAmountRoom(), building.getMassiveFloors().get(j).getJunction(i).getArea() );
+            }
+        }
         
-        printStream.format(format, args);
-        printStream.
-        printStream.printf("Flat: %-10d% Area: -10d% Amount room: -10d%n",printStream.,2,3);
     }
-     
 }

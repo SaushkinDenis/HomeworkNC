@@ -17,14 +17,7 @@ public class Dwelling implements Building, Serializable{
     
     public Dwelling(ArrayList<Floor> dwellingFloors){
         this.dwellingFloors = dwellingFloors;
-    }
-    
-    //    private 
-
-    //    private
-
-    //    private
-    
+    } 
     
     @Override
     public int getTotalAmountFloor(){

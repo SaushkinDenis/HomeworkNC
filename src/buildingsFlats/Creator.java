@@ -164,7 +164,7 @@ public class Creator {
 //            }
 
 
-//         ---------------------- Вывод объекта офииса по его номеру (+ обработчик) ------------------------------        
+//         ---------------------- Вывод объекта квартиры по его номеру (+ обработчик) ------------------------------        
 //            try{
 //                int numberFlatInBuild = 0;
 //                Flat office = new Flat();
@@ -192,7 +192,7 @@ public class Creator {
 //        } catch (IOException ex) {
 //            System.out.println(ex.getMessage());
 //        }
-        
+//        
 //--------------- OutputStream InputStream --------------
 //        try (FileOutputStream out = new FileOutputStream("out")){
 //            outputBuilding(dwelling, out);
@@ -209,7 +209,7 @@ public class Creator {
 //        } catch (IOException ex) {
 //            System.out.println(ex.getMessage());
 //        }
-               
+//               
 //----------- Сериализация ------------------
 //        try (FileOutputStream out = new FileOutputStream("out")){
 //            serializeBuilding(dwelling, out);
@@ -226,7 +226,7 @@ public class Creator {
 //        } catch (IOException ex) {
 //            System.out.println(ex.getMessage());
 //        }
-
+//
 // ---------------- writeBuidingFormat --------------
 //        try(BufferedWriter out = new BufferedWriter(new FileWriter("out"))){
 //            writeBuidingFormat(dwelling, out);

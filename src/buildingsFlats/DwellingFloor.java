@@ -1,6 +1,8 @@
 package buildingsFlats;
+
 import interfaces.Floor;
 import interfaces.Space;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -15,14 +17,7 @@ public class DwellingFloor implements Floor, Serializable{
     public DwellingFloor(ArrayList<Space> flats){
         this.flats = flats;
     }
-    
-    //    private 
-    
-    //    private
-            
-    //    private
-    
-    
+ 
     @Override
     public int getAmountJunctionOnFloor(){
         return this.flats.size();

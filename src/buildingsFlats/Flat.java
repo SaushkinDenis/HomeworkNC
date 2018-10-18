@@ -1,5 +1,7 @@
 package buildingsFlats;
+
 import interfaces.Space;
+
 import java.io.Serializable;
 
 public class Flat implements Space, Serializable{

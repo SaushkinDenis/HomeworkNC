@@ -3,8 +3,8 @@ package buildingsOffices;
 import interfaces.Building;
 import interfaces.Floor;
 import interfaces.Space;
-import java.io.Serializable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class OfficeBuild implements Building, Serializable{
@@ -18,14 +18,7 @@ public class OfficeBuild implements Building, Serializable{
     public OfficeBuild(ArrayList<Floor> dwellingFloors){
         this.dwellingFloors = dwellingFloors;
     }
-    
-    //    private 
-
-    //    private
-
-    //    private
-    
-    
+   
     @Override
     public int getTotalAmountFloor(){
         return this.dwellingFloors.size();

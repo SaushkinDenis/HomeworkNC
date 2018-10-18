@@ -1,10 +1,32 @@
 package buildingsOffices;
 
+import static homework4.Buildings.deserializeBuilding;
+import static homework4.Buildings.inputBuilding;
+import static homework4.Buildings.outputBuilding;
+import static homework4.Buildings.readBuidingFormat;
+import static homework4.Buildings.readBulding;
+import static homework4.Buildings.serializeBuilding;
+import static homework4.Buildings.writeBuidingFormat;
+import static homework4.Buildings.writeBuilding;
+
 import interfaces.Building;
 import interfaces.Floor;
 import interfaces.Space;
+import java.io.BufferedReader;
+
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Creator {
 
@@ -146,7 +168,7 @@ public class Creator {
 //            }
 
 
-//         ---------------------- Вывод объекта офииса по его номеру (+ обработчик) ------------------------------        
+//         ---------------------- Вывод объекта офиса по его номеру (+ обработчик) ------------------------------        
 //            try{
 //                int numberFlatInBuild = 0;
 //                Space office = new Office();
@@ -154,8 +176,73 @@ public class Creator {
 //            }catch(SpaceIndexOutOfBoundsException ex){
 //                System.out.print(ex.getMessage()+ ": ");
 //                System.out.println(ex.getNumberFlat());
-//            }            
-            
+//            } 
+
+
+// -------------------- writeBuilding readBulding --------------------------
+//        try {
+//            BufferedWriter in = new BufferedWriter(new FileWriter("in"));
+//            writeBuilding(dwelling, in);
+//        } catch (FileNotFoundException ex) {
+//            System.out.println("Error occurred with stream!");
+//        } catch (IOException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//        
+//        try {
+//            BufferedReader out = new BufferedReader(new FileReader("out"));
+//            Building newBuilding = readBulding(out);
+//        } catch (FileNotFoundException ex) {
+//            System.out.println(ex.getMessage());
+//        } catch (IOException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//        
+//--------------- OutputStream InputStream --------------
+//        try (FileOutputStream out = new FileOutputStream("out")){
+//            outputBuilding(dwelling, out);
+//        } catch (FileNotFoundException ex) {
+//            System.out.println(ex.getMessage());
+//        } catch (IOException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//        
+//        try(FileInputStream fileInputStream = new FileInputStream("out")) {
+//            inputBuilding(fileInputStream);
+//        } catch (FileNotFoundException ex) {
+//            System.out.println(ex.getMessage());
+//        } catch (IOException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//               
+//----------- Сериализация ------------------
+//        try (FileOutputStream out = new FileOutputStream("out")){
+//            serializeBuilding(dwelling, out);
+//        } catch (FileNotFoundException ex) {
+//            System.out.println(ex.getMessage());
+//        } catch (IOException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//        
+//        try (FileInputStream fileInputStream = new FileInputStream("out")){
+//            deserializeBuilding(fileInputStream);
+//        } catch (FileNotFoundException ex) {
+//            System.out.println(ex.getMessage());
+//        } catch (IOException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//
+// ---------------- writeBuidingFormat --------------
+//        try(BufferedWriter out = new BufferedWriter(new FileWriter("out"))){
+//            writeBuidingFormat(dwelling, out);
+//        }
+//        catch (FileNotFoundException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//        catch (IOException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+         
     }
     
     static ArrayList getMassivJunction(){ // Создание рандомного массива квартир на этаже

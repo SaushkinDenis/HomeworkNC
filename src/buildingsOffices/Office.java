@@ -1,5 +1,7 @@
 package buildingsOffices;
+
 import interfaces.Space;
+
 import java.io.Serializable;
 
 public class Office implements Space, Serializable{
