@@ -3,7 +3,6 @@ package buildingsFlats;
 import static homework4.Buildings.deserializeBuilding;
 import static homework4.Buildings.inputBuilding;
 import static homework4.Buildings.outputBuilding;
-import static homework4.Buildings.readBuidingFormat;
 import static homework4.Buildings.readBulding;
 import static homework4.Buildings.serializeBuilding;
 import static homework4.Buildings.writeBuidingFormat;
@@ -13,6 +12,8 @@ import interfaces.Floor;
 import interfaces.Space;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -74,7 +75,7 @@ public class Creator {
 
 // ------------------
             System.out.println("\nFloor.Info:");
-            System.out.println("Amount of the flats on floor - " + dwellingFloor.getAmountJunctionOnFloor() + " qty.");
+            System.out.println("Amount of the flats on floor - " + dwellingFloor.getAmountJunctionsOnFloor() + " qty.");
             System.out.println("Total area of the flats on floor - " + dwellingFloor.getTotalAreaJunctionOnFloor() + " sq.m.");
             System.out.println("Total rooms of the flats on floor - " + dwellingFloor.getAmountRoomsOnFloor() + " qty.");
             System.out.println("Best space of the flats on floor - " + dwellingFloor.getBestSpace().getArea() + " qty.");
@@ -227,16 +228,16 @@ public class Creator {
 //            System.out.println(ex.getMessage());
 //        }
 //
-// ---------------- writeBuidingFormat --------------
-//        try(BufferedWriter out = new BufferedWriter(new FileWriter("out"))){
-//            writeBuidingFormat(dwelling, out);
-//        }
-//        catch (FileNotFoundException ex) {
-//            System.out.println(ex.getMessage());
-//        }
-//        catch (IOException ex) {
-//            System.out.println(ex.getMessage());
-//        }
+// ---------------- writeBuidingFormat (DataOutputStream out) --------------
+         try (FileOutputStream out = new FileOutputStream("out")){
+            writeBuidingFormat(dwelling, out);
+        }
+        catch (FileNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+        catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
     
     static ArrayList getMassivJunction(){ // Создание рандомного массива квартир на этаже

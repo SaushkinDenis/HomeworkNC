@@ -3,10 +3,10 @@ package interfaces;
 import java.util.ArrayList;
 
 public interface Floor {
+    
+    ArrayList<Space> junction = new ArrayList();
 
-    public ArrayList<Space> flats = new ArrayList();
-
-    int getAmountJunctionOnFloor();
+    int getAmountJunctionsOnFloor();
     
     int getTotalAreaJunctionOnFloor();
     
@@ -23,4 +23,6 @@ public interface Floor {
     void delJunction(int numberJunction);
     
     Space getBestSpace();
+    
+    String toString();
 }

@@ -19,7 +19,7 @@ public class OfficeFloor implements Floor, Serializable{
     }
         
     @Override
-    public int getAmountJunctionOnFloor(){
+    public int getAmountJunctionsOnFloor(){
         return this.offices.size();
     }
 
@@ -78,5 +78,22 @@ public class OfficeFloor implements Floor, Serializable{
             }
         }
         return findOffice;
+    }
+    
+        @Override
+    public String toString(){
+        StringBuffer junction = new StringBuffer();
+        junction.append("OfficeFloor");
+        junction.append(" [");
+        junction.append(this.getAmountJunctionsOnFloor());
+        junction.append(", ");
+        
+        for (int i = 0; i <= this.getAmountJunctionsOnFloor(); i++){
+            junction.append(this.getJunction(i).toString());
+            if(!(i == this.getAmountJunctionsOnFloor())) junction.append(", ");
+        }
+        
+        junction.append("]");
+        return junction.toString();
     }
 }

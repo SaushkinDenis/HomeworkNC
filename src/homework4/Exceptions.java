@@ -1,7 +1,6 @@
 package homework4;
 
-public class Exceptions {
-    
+public class Exceptions {   
 }
 
 class InexchangeableSpacesException{

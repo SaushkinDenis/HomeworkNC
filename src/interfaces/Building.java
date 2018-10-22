@@ -14,9 +14,9 @@ public interface Building {
     
     ArrayList<Floor> getMassiveFloors();
     
-    Floor getJunctionFloor (int numberFloor);
+    Floor getFloor (int numberFloor);
     
-    void setJunctionFloor (int numberFloor, Floor junctionFloor);
+    void setFloor (int numberFloor, Floor junctionFloor);
     
     Space getJunctionInBuild(int findNumberJunctionInBuild);
     
@@ -29,4 +29,6 @@ public interface Building {
     Space getBestSpace();
     
     ArrayList getSortMassiveAreaJunction();
+    
+    String toString();
 }

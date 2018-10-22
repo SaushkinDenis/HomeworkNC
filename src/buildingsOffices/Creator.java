@@ -3,7 +3,6 @@ package buildingsOffices;
 import static homework4.Buildings.deserializeBuilding;
 import static homework4.Buildings.inputBuilding;
 import static homework4.Buildings.outputBuilding;
-import static homework4.Buildings.readBuidingFormat;
 import static homework4.Buildings.readBulding;
 import static homework4.Buildings.serializeBuilding;
 import static homework4.Buildings.writeBuidingFormat;
@@ -12,8 +11,8 @@ import static homework4.Buildings.writeBuilding;
 import interfaces.Building;
 import interfaces.Floor;
 import interfaces.Space;
-import java.io.BufferedReader;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,8 +21,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
-
-
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -76,7 +73,7 @@ public class Creator {
 
 // ------------------
             System.out.println("\nFloor.Info:");
-            System.out.println("Amount of the offices on floor - " + dwellingFloor.getAmountJunctionOnFloor() + " qty.");
+            System.out.println("Amount of the offices on floor - " + dwellingFloor.getAmountJunctionsOnFloor() + " qty.");
             System.out.println("Total area of the offices on floor - " + dwellingFloor.getTotalAreaJunctionOnFloor() + " sq.m.");
             System.out.println("Total rooms of the offices on floor - " + dwellingFloor.getAmountRoomsOnFloor() + " qty.");
             System.out.println("Best space of the offices on floor - " + dwellingFloor.getBestSpace().getArea() + " qty.");
@@ -103,7 +100,7 @@ public class Creator {
 //            System.out.print(ex.getMessage()+ ": ");
 //            System.out.println(ex.getNumberFlat());
 //        } 
-
+//
 //              --------  Обнуление офиса на определенном этаже (+ обработчик) ------------    
 //        try{
 //            int numberNewFlatInBuild = 10;
@@ -232,16 +229,16 @@ public class Creator {
 //            System.out.println(ex.getMessage());
 //        }
 //
-// ---------------- writeBuidingFormat --------------
-//        try(BufferedWriter out = new BufferedWriter(new FileWriter("out"))){
-//            writeBuidingFormat(dwelling, out);
-//        }
-//        catch (FileNotFoundException ex) {
-//            System.out.println(ex.getMessage());
-//        }
-//        catch (IOException ex) {
-//            System.out.println(ex.getMessage());
-//        }
+// ---------------- writeBuidingFormat (Writer out)--------------
+        try (FileOutputStream out = new FileOutputStream("out")){
+            writeBuidingFormat(dwelling, out);
+        }
+        catch (FileNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+        catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
          
     }
     
@@ -305,53 +302,5 @@ class InvalidRoomsCountException extends IllegalArgumentException{
     public InvalidRoomsCountException(String message, int number){   
         super(message);
         AmountRooms = number;
-    }
-}
-
-class InexchangeableSpacesException{
-    private int firstRoom;
-    private int secondRoom;
-    private String message;
-    
-    public int getFirstRoom(){
-        return firstRoom;
-    }
-    
-    public int getSecondRoom(){
-        return secondRoom;
-    }
-    
-    public String getMessage(){
-        return message;
-    }
-    
-    public InexchangeableSpacesException(String message, int firstRoom, int secondRoom){   
-        this.message = message;
-        this.firstRoom = firstRoom;
-        this.secondRoom = secondRoom;
-    }
-}
-
-class InexchangeableFloorsException{
-    private int firstFloor;
-    private int secondFloor;
-    private String message;
-    
-    public int getFirstRoom(){
-        return firstFloor;
-    }
-    
-    public int getSecondRoom(){
-        return secondFloor;
-    }
-    
-    public String getMessage(){
-        return message;
-    }
-    
-    public InexchangeableFloorsException(String message, int firstFloor, int secondFloor){   
-        this.message = message;
-        this.firstFloor = firstFloor;
-        this.secondFloor = secondFloor;
     }
 }

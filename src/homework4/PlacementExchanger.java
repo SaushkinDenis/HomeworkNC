@@ -15,7 +15,7 @@ public class PlacementExchanger {
     
     static boolean exchangeFloors(Floor junction1, Floor junction2){
         boolean flag = false;
-        if(junction1.getAmountJunctionOnFloor() == junction2.getAmountJunctionOnFloor()&& junction1.getTotalAreaJunctionOnFloor() == junction2.getTotalAreaJunctionOnFloor()){
+        if(junction1.getAmountJunctionsOnFloor() == junction2.getAmountJunctionsOnFloor()&& junction1.getTotalAreaJunctionOnFloor() == junction2.getTotalAreaJunctionOnFloor()){
             flag = true;
         }
         return flag;
@@ -34,8 +34,8 @@ public class PlacementExchanger {
     
     public static void exchangeBuildingFloors(Building building1, int index1, Building building2, int index2){
         Floor floor1, floor2, change;
-        floor1 = building1.getJunctionFloor(index1);
-        floor2 = building2.getJunctionFloor(index2);
+        floor1 = building1.getFloor(index1);
+        floor2 = building2.getFloor(index2);
         if(exchangeFloors(floor1, floor2)){
            change = floor1;
            floor1 = floor2;

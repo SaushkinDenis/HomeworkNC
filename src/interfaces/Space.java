@@ -10,4 +10,5 @@ public interface Space {
     
     void setArea(int area);
     
+    String toString();
 }

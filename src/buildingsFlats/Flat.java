@@ -41,5 +41,17 @@ public class Flat implements Space, Serializable{
     @Override
     public void setArea(int area){
         this.area = area;
-    }    
+    }  
+    
+    @Override
+    public String toString(){
+        StringBuffer junction = new StringBuffer();
+        junction.append("Flat");
+        junction.append(" [");
+        junction.append(this.amountRoom);
+        junction.append(", ");
+        junction.append(this.area);
+        junction.append("]");
+        return junction.toString();
+    }
 }

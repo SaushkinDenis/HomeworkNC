@@ -3,13 +3,13 @@ package buildingsFlats;
 import interfaces.Building;
 import interfaces.Floor;
 import interfaces.Space;
-import java.io.Serializable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Dwelling implements Building, Serializable{
 
-    ArrayList<Floor> dwellingFloors; // Массив этажей [Массив квартир] [Массив квартир]
+    ArrayList<Floor> dwellingFloors;
     
     public Dwelling(int amountFloors, ArrayList amountFlatsOnFloors){
         this.dwellingFloors = new ArrayList(amountFloors);
@@ -28,7 +28,7 @@ public class Dwelling implements Building, Serializable{
     public int getTotalAmountJunction(){
         int totalAmountFlats = 0; 
         for (int i = 0; i <= getTotalAmountFloor()-1; i++){
-            totalAmountFlats += this.dwellingFloors.get(i).getAmountJunctionOnFloor();
+            totalAmountFlats += this.dwellingFloors.get(i).getAmountJunctionsOnFloor();
         }
         return totalAmountFlats;  
     }
@@ -57,14 +57,14 @@ public class Dwelling implements Building, Serializable{
     }
     
     @Override
-    public Floor getJunctionFloor (int numberFloor) throws  FloorIndexOutOfBoundsException{
+    public Floor getFloor (int numberFloor) throws  FloorIndexOutOfBoundsException{
         if(numberFloor > this.dwellingFloors.size()) throw new FloorIndexOutOfBoundsException("Подъезд.Вывод: Этажа с данным номером не существует", numberFloor);{
         return this.dwellingFloors.get(numberFloor);
         }
     }
     
     @Override
-    public void setJunctionFloor (int numberFloor, Floor junctionFloor) throws FloorIndexOutOfBoundsException{
+    public void setFloor (int numberFloor, Floor junctionFloor) throws FloorIndexOutOfBoundsException{
         if(numberFloor > this.dwellingFloors.size()) throw new FloorIndexOutOfBoundsException("Подъезд.Изменение: Этажа с данным номером не существует", numberFloor);
         this.dwellingFloors.set(numberFloor, junctionFloor);
     }
@@ -75,7 +75,7 @@ public class Dwelling implements Building, Serializable{
         Space findFlat = new Flat();
         boolean flag = true;
         for(Floor df: this.dwellingFloors){            
-            for(Space f: df.flats){
+            for(Space f: df.junction){
                 numberFlatInBuild++;
                 if (numberFlatInBuild == findNumberFlatInBuild){
                     findFlat = f;
@@ -95,7 +95,7 @@ public class Dwelling implements Building, Serializable{
         boolean flag = true;
         for(Floor df: this.dwellingFloors){   
             i++;
-            for(Space f: df.flats){
+            for(Space f: df.junction){
                 numberJunctionInBuild++;
                 if (findNumberFlatInBuild == numberJunctionInBuild){
                     findDf = df;
@@ -119,7 +119,7 @@ public class Dwelling implements Building, Serializable{
         for(Floor df: this.dwellingFloors){   
             i++;
             newNumberFlat = 0;
-            for(Space f: df.flats){
+            for(Space f: df.junction){
                 numberFlatInBuild++;
                 newNumberFlat++;
                 if (numberFlatInBuild <= nextNumberJunctionInBuild){
@@ -141,7 +141,7 @@ public class Dwelling implements Building, Serializable{
          boolean flag = false;
         for(Floor df: this.dwellingFloors){   
             i++;
-            for(Space f: df.flats){
+            for(Space f: df.junction){
                 numberFlatInBuild++;
                 if (numberFlatInBuild <= nextNumberJunctionInBuild){
                     findDf = df;
@@ -161,7 +161,7 @@ public class Dwelling implements Building, Serializable{
         Space findFlat = new Flat();
 
         for(int i = 0; i <= this.dwellingFloors.size() - 1; i++){
-            for(int j = 0; j <= this.dwellingFloors.get(i).getAmountJunctionOnFloor() - 1; j++){
+            for(int j = 0; j <= this.dwellingFloors.get(i).getAmountJunctionsOnFloor() - 1; j++){
                 int area = this.dwellingFloors.get(i).getJunction(j).getArea();
                 if (area >= bestArea){
                 bestArea = area;
@@ -179,7 +179,7 @@ public class Dwelling implements Building, Serializable{
         boolean flag = true;
         int change;
         for(int i = 0; i <= this.dwellingFloors.size() - 1; i++){
-            for(int j = 0; j <= this.dwellingFloors.get(i).getAmountJunctionOnFloor() - 1; j++){
+            for(int j = 0; j <= this.dwellingFloors.get(i).getAmountJunctionsOnFloor() - 1; j++){
                 sortAreaFlats.add(this.dwellingFloors.get(i).getJunction(j).getArea());
             }   
         }   
@@ -197,5 +197,22 @@ public class Dwelling implements Building, Serializable{
             }
         }
         return sortAreaFlats;
+    }
+    
+    @Override
+    public String toString(){
+        StringBuffer junction = new StringBuffer();
+        junction.append("Dwelling");
+        junction.append(" [");
+        junction.append(this.getTotalAmountFloor());
+        junction.append(", ");
+        
+        for (int i = 1; i <= this.getTotalAmountFloor(); i++){
+            junction.append(this.dwellingFloors.get(i).toString());
+            if(!(i == this.getTotalAmountFloor())) junction.append(", ");
+        }
+        
+        junction.append("]");
+        return junction.toString();
     }
 }   

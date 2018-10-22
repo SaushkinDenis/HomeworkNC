@@ -7,8 +7,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class DwellingFloor implements Floor, Serializable{
-    int amountFlatOnFloor; // Количество квартир на этаже 
-    ArrayList<Space> flats; // Массив квартир на этаже [Квартира] [Квартира] []
+    int amountFlatOnFloor;
+    ArrayList<Space> flats;
         
     public DwellingFloor(int amountJunction){
         this.amountFlatOnFloor = amountJunction;
@@ -19,7 +19,7 @@ public class DwellingFloor implements Floor, Serializable{
     }
  
     @Override
-    public int getAmountJunctionOnFloor(){
+    public int getAmountJunctionsOnFloor(){
         return this.flats.size();
     }
 
@@ -78,5 +78,22 @@ public class DwellingFloor implements Floor, Serializable{
             }
         }
         return findFlat;
+    }
+    
+    @Override
+    public String toString(){
+        StringBuffer junction = new StringBuffer();
+        junction.append("DwellingFloor");
+        junction.append(" [");
+        junction.append(this.getAmountJunctionsOnFloor());
+        junction.append(", ");
+        
+        for (int i = 0; i <= this.getAmountJunctionsOnFloor(); i++){
+            junction.append(this.getJunction(i).toString());
+            if(!(i == this.getAmountJunctionsOnFloor())) junction.append(", ");
+        }
+        
+        junction.append("]");
+        return junction.toString();
     }
 }
