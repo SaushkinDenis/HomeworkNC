@@ -43,7 +43,6 @@ public class Office implements Space, Serializable{
         this.area = area;
     }   
     
-    @Override
     public String toString(){
         StringBuffer junction = new StringBuffer();
         junction.append("Office");
@@ -53,5 +52,23 @@ public class Office implements Space, Serializable{
         junction.append(this.area);
         junction.append("]");
         return junction.toString();
+    }
+    
+    @Override
+    public boolean equals(Object object){
+        return object.getClass() == this.getClass() || object.getClass().getDeclaredFields()== this.getClass().getDeclaredFields();
+    }
+    
+    @Override
+    public int hashCode(){
+        byte a = (byte) this.getAmountRoom();
+        byte b = (byte) this.getArea();
+        return a^b;
+    }
+    
+    Override
+    public Object clone(){
+        
+        
     }
 }

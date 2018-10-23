@@ -24,5 +24,6 @@ public interface Floor {
     
     Space getBestSpace();
     
-    String toString();
+    Object clone();
+    
 }

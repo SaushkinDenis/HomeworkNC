@@ -30,5 +30,5 @@ public interface Building {
     
     ArrayList getSortMassiveAreaJunction();
     
-    String toString();
+    Object clone();
 }

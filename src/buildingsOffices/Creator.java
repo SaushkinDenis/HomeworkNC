@@ -27,7 +27,10 @@ import java.util.logging.Logger;
 
 public class Creator {
 
-    public static void main(String... args) throws InvalidSpaceAreaException, InvalidRoomsCountException{
+    public static void main(String... args){
+    }
+    
+    public void create() throws InvalidSpaceAreaException, InvalidRoomsCountException{
         ArrayList<ArrayList<Space>> building = new ArrayList(); // Создание здания (Массива [этажей] массивов квартир) для работы с Dwelling
         ArrayList<Floor> dwellingFloors = new ArrayList(); // Создание этажей (Массива этажей массивов квартир) для работы с DwellingFloor
         ArrayList<Space> flats; // Создание квартир (Массив квартир) для работы с Flat

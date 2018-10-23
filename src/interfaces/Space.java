@@ -11,4 +11,8 @@ public interface Space {
     void setArea(int area);
     
     String toString();
+    
+    int hashCode();
+    
+    Object clone();
 }

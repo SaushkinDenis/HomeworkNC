@@ -43,7 +43,6 @@ public class Flat implements Space, Serializable{
         this.area = area;
     }  
     
-    @Override
     public String toString(){
         StringBuffer junction = new StringBuffer();
         junction.append("Flat");
@@ -53,5 +52,24 @@ public class Flat implements Space, Serializable{
         junction.append(this.area);
         junction.append("]");
         return junction.toString();
+    }
+    
+    @Override
+    public boolean equals(Object object){
+        if(object.getClass() == this.getClass() || object.getClass().getDeclaredFields()== this.getClass().getDeclaredFields()) return true;
+        else return false;
+    }
+    
+    @Override
+    public int hashCode(){
+        byte a = (byte) this.getAmountRoom();
+        byte b = (byte) this.getArea();
+        return a^b;
+    }
+    
+    @Override
+    public Object clone(){
+        
+        
     }
 }

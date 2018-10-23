@@ -96,4 +96,26 @@ public class DwellingFloor implements Floor, Serializable{
         junction.append("]");
         return junction.toString();
     }
+    
+    @Override
+    public boolean equals(Object object){
+        if(object.getClass() == this.getClass() || object.getClass().getDeclaredFields()== this.getClass().getDeclaredFields()) return true;
+        else return false;
+    }
+    
+    @Override
+    public int hashCode(){
+        byte a = (byte) this.getAmountJunctionsOnFloor();
+        byte b = 0;
+        for(Space s: this.getMassiveJunction()){
+            b += (byte) s.hashCode();
+        }
+        return a^b;
+    }
+    
+    Override
+    public Object clone(){
+        
+        
+    }
 }
