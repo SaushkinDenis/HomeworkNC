@@ -7,7 +7,7 @@ import interfaces.Space;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Dwelling implements Building, Serializable{
+public class Dwelling implements Building, Serializable, Cloneable{
 
     ArrayList<Floor> dwellingFloors;
     
@@ -232,9 +232,8 @@ public class Dwelling implements Building, Serializable{
         return a^b;
     }
     
-    Override
-    public Object clone(){
-        
-        
+    @Override
+    public Object clone() throws CloneNotSupportedException{
+        return (Dwelling) super.clone();   
     }
 }   

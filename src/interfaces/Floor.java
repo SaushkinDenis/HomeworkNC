@@ -24,6 +24,6 @@ public interface Floor {
     
     Space getBestSpace();
     
-    Object clone();
+    Object clone() throws CloneNotSupportedException;
     
 }

@@ -4,7 +4,7 @@ import interfaces.Space;
 
 import java.io.Serializable;
 
-public class Office implements Space, Serializable{
+public class Office implements Space, Serializable, Cloneable{
     int area;
     int amountRoom;
 
@@ -65,10 +65,9 @@ public class Office implements Space, Serializable{
         byte b = (byte) this.getArea();
         return a^b;
     }
-    
-    Override
-    public Object clone(){
-        
-        
+
+    @Override
+    public Object clone() throws CloneNotSupportedException{
+        return (Office) super.clone();   
     }
 }

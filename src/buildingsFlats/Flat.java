@@ -4,7 +4,7 @@ import interfaces.Space;
 
 import java.io.Serializable;
 
-public class Flat implements Space, Serializable{
+public class Flat implements Space, Serializable, Cloneable{
     int area;
     int amountRoom;
 
@@ -68,8 +68,7 @@ public class Flat implements Space, Serializable{
     }
     
     @Override
-    public Object clone(){
-        
-        
+    public Object clone() throws CloneNotSupportedException{
+        return (Flat) super.clone();   
     }
 }
