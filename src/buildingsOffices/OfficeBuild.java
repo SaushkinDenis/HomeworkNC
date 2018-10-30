@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class OfficeBuild implements Building, Serializable, Cloneable{
 
-    ArrayList<Floor> dwellingFloors; // Массив этажей [Массив квартир] [Массив квартир]
+    ArrayList<Floor> dwellingFloors; 
     
     public OfficeBuild(int amountFloors, ArrayList amountOfficesOnFloors){
         this.dwellingFloors = new ArrayList(amountFloors);
@@ -218,8 +218,7 @@ public class OfficeBuild implements Building, Serializable, Cloneable{
     
     @Override
     public boolean equals(Object object){
-        if(object.getClass() == this.getClass() || object.getClass().getDeclaredFields()== this.getClass().getDeclaredFields()) return true;
-        else return false;
+        return ((OfficeBuild)object).dwellingFloors == this.dwellingFloors;
     }
     
     @Override
@@ -233,7 +232,7 @@ public class OfficeBuild implements Building, Serializable, Cloneable{
     }
     
     @Override
-    public Object clone() throws CloneNotSupportedException{
-        return (OfficeBuild) super.clone();   
+    public Object clone(){
+        return new OfficeBuild(getMassiveFloors());
     }
 }   

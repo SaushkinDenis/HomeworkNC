@@ -218,8 +218,7 @@ public class Dwelling implements Building, Serializable, Cloneable{
     
     @Override
     public boolean equals(Object object){
-        if(object.getClass() == this.getClass() || object.getClass().getDeclaredFields()== this.getClass().getDeclaredFields()) return true;
-        else return false;
+        return ((Dwelling)object).dwellingFloors == this.dwellingFloors;
     }
     
     @Override
@@ -233,7 +232,7 @@ public class Dwelling implements Building, Serializable, Cloneable{
     }
     
     @Override
-    public Object clone() throws CloneNotSupportedException{
-        return (Dwelling) super.clone();   
+    public Object clone(){
+        return new Dwelling(getMassiveFloors());
     }
 }   

@@ -56,7 +56,7 @@ public class Office implements Space, Serializable, Cloneable{
     
     @Override
     public boolean equals(Object object){
-        return object.getClass() == this.getClass() || object.getClass().getDeclaredFields()== this.getClass().getDeclaredFields();
+       return ((Office)object).amountRoom == this.amountRoom || ((Office)object).area == this.area;
     }
     
     @Override
@@ -67,7 +67,10 @@ public class Office implements Space, Serializable, Cloneable{
     }
 
     @Override
-    public Object clone() throws CloneNotSupportedException{
-        return (Office) super.clone();   
+    public Object clone(){
+        Office newOffice = new Office();
+        newOffice.amountRoom = this.getAmountRoom();
+        newOffice.area = this.getArea();
+        return newOffice;
     }
 }

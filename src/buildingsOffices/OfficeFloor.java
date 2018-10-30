@@ -99,8 +99,7 @@ public class OfficeFloor implements Floor, Serializable, Cloneable{
     
     @Override
     public boolean equals(Object object){
-        if(object.getClass() == this.getClass() || object.getClass().getDeclaredFields()== this.getClass().getDeclaredFields()) return true;
-        else return false;
+        return ((OfficeFloor)object).offices == this.offices;
     }
 
     @Override
@@ -114,7 +113,7 @@ public class OfficeFloor implements Floor, Serializable, Cloneable{
     }
     
     @Override
-    public Object clone() throws CloneNotSupportedException{
-        return (OfficeFloor) super.clone();   
+    public Object clone(){
+        return new OfficeFloor(getMassiveJunction());
     }
 }

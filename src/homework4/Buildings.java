@@ -15,8 +15,6 @@ import java.io.StreamTokenizer;
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Buildings {
     
@@ -34,7 +32,6 @@ public class Buildings {
                    dout.write(s.getArea());
                 }
             }
-            dout.close();
         } 
         catch (IOException ex) {
             System.out.println(ex.getMessage());
@@ -44,7 +41,6 @@ public class Buildings {
     
     public static Building inputBuilding (InputStream in){
         DataInputStream dis = new DataInputStream(in);
-      
         ArrayList<ArrayList<Space>> building = new ArrayList();
         ArrayList<Space> floors = new ArrayList();
         Space junction = null;
@@ -102,7 +98,6 @@ public class Buildings {
                    in.write(s.getArea());
                 }
             }
-            in.close();
         } 
         catch (IOException ex) {
             System.out.println(ex.getMessage());
@@ -150,7 +145,6 @@ public class Buildings {
                         break;
                 }  
         }
-    in.close();
     return  (Building) building;
     }
 
@@ -160,7 +154,7 @@ public class Buildings {
             ObjectOutputStream objectOutputStream;
             objectOutputStream = new ObjectOutputStream(out);
             objectOutputStream.writeObject(building);
-            //objectOutputStream.close();
+
         } 
         catch (IOException ex) {
             System.out.println(ex.getMessage());
@@ -174,8 +168,7 @@ public class Buildings {
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(in);
             building = (Building) objectInputStream.readObject();
-            objectInputStream.close();
-            //in.close();
+
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         } catch (ClassNotFoundException ex) {
@@ -184,92 +177,48 @@ public class Buildings {
        return building;
     }
     
-    public static void writeBuidingFormat(Building building, OutputStream out){
-        DataOutputStream dout = new DataOutputStream(out);
-        Formatter formatter = new Formatter();
+    public static void writeBuidingFormat(Building building, Writer out){
+        Formatter formatter = new Formatter(out);
+
+        int numberJunc = 0;
+        formatter.format("Количество этажей: %d.", building.getTotalAmountFloor());
         
-        try {
-            int numberJunc = 0;
-            formatter.format("Количество этажей: %d", building.getTotalAmountFloor());
-            dout.write(building.getTotalAmountFloor());
-            for(int j = 1; j <= building.getTotalAmountFloor(); j++){
-                formatter.format("Количество помещений на этаже: %d", building.getFloor(j).getAmountJunctionsOnFloor());
-                dout.write(building.getFloor(j).getAmountJunctionsOnFloor());
-                for(int i = 0; i <= building.getMassiveFloors().get(j).getAmountJunctionsOnFloor(); i++){
-                    formatter.format("Помещение " + numberJunc + ", количество комнат: %d", building.getMassiveFloors().get(j).getJunction(i).getAmountRoom());
-                    dout.write(building.getMassiveFloors().get(j).getJunction(i).getAmountRoom());
-                    formatter.format("Помещение №" + numberJunc + ", площадь: %d",building.getMassiveFloors().get(j).getJunction(i).getArea());
-                    dout.write(building.getMassiveFloors().get(j).getJunction(i).getArea());
-                    numberJunc++;
-                }
+        for(int j = 1; j <= building.getTotalAmountFloor(); j++){
+            formatter.format("Количество помещений на этаже: %d.", building.getFloor(j).getAmountJunctionsOnFloor());
+            
+            for(int i = 0; i <= building.getMassiveFloors().get(j).getAmountJunctionsOnFloor(); i++){
+                formatter.format("Помещение № %d, количество комнат: %d.", numberJunc, building.getMassiveFloors().get(j).getJunction(i).getAmountRoom());
+                formatter.format("Помещение № %d, площадь: %d.", numberJunc, building.getMassiveFloors().get(j).getJunction(i).getArea());
+                numberJunc++;
             }
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());    
         }
     }
 
-
-    
-    public static Building readBuldingFormat(Scanner scanner){
-        Formatter formatter = new Formatter();
-        ArrayList<ArrayList<Space>> building = new ArrayList();
+    public static Building readBuldingFormat(){
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Space> floors;
+        Space junction = null;
         
-//        String s = scanner.toString();
-//        s.split(":");
-//        scanner.hasNextInt();
-//        int k = 0, j = 0;
-//        
-//        try {
-//            for(int i = 0; i <= dis.available(); i++){
-//                switch (k){     
-//                    
-//                        formatter.format("Количество этажей: %d", in.read());
-//                        k++;
-//                        break;
-//
-//                    case 1: 
-//                        formatter.format("Количество помещений на этаже: %d", in.read());
-//                        k++;
-//                        j = in.read();
-//                        break;
-//
-//                    case 2:
-//                        if (j != 0){
-//                            formatter.format("Помещение " + i + ", количество комнат: %d", in.read());
-//                            j--;
-//                            k++;
-//                        } 
-//                        else {
-//                            k = 1;
-//                        }
-//                        break;
-//
-//                    case 3: 
-//                        formatter.format("Помещение №" + i + ", площадь: %d", in.read());
-//                        k = 2;
-//                        break;
-//                }  
-//        }
-//            
-//            
-//            
-//            
-//            
-//            
-//            
-//// ---------------        (НЕОБХОДИМ ЦИКЛ ЧТЕНИЯ)
-//            int Floors = in.readInt();
-//            int AmountJunctionOnFloor = in.readInt();
-//            int AmountRoom = in.readInt();
-//            int getArea = in.readInt();
-//           
-//            System.out.format("Floors: %s  AmountJunctionOnFloor: %d  AmountRoom: %f  getArea: %b", 
-//                    Floors, AmountJunctionOnFloor, AmountRoom, getArea);
-//        }
-//        catch(IOException ex){
-//              
-//            System.out.println(ex.getMessage());
-//        }  
-    return (Building) building;
+        System.out.println("Количество этажей: ");
+        ArrayList<ArrayList<Space>> building = new ArrayList(scanner.nextInt());
+
+        for(int numberFloor = 1; numberFloor <= building.size(); numberFloor++){
+            System.out.printf("Количество помещений на %d этаже: ", numberFloor);
+            floors = new ArrayList(scanner.nextInt());
+            
+            for(int numberJunc = 0; numberJunc <= floors.size(); numberJunc++){
+                System.out.printf("Помещение № %d, количество комнат: ", numberJunc);
+                junction.setAmountRoom(scanner.nextInt());
+                System.out.printf("Помещение № %d, площадь: ", numberJunc);
+                junction.setArea(scanner.nextInt());
+ 
+                floors.add(numberJunc, junction);
+            }
+            
+            building.add(numberFloor, floors);
+        }
+        
+        return (Building) building;
     }      
+ 
 }
