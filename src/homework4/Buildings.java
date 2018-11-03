@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.io.StreamTokenizer;
@@ -22,7 +23,7 @@ public class Buildings {
         DataOutputStream dout = new DataOutputStream(out);
         
         try {
-            dout.write(building.getTotalAmountFloor());
+            dout.writeInt(building.getTotalAmountFloor());
             
             for(Floor f : building.getMassiveFloors()){
                 dout.write(f.getAmountJunctionsOnFloor());
@@ -50,19 +51,19 @@ public class Buildings {
             for(int i = 0; i <= dis.available(); i++){
                 switch (nextJun){
                     case 0:
-                        building = new ArrayList((int) dis.read());
+                        building = new ArrayList(dis.readInt());
                         nextJun++;
                         break;
                         
                     case 1:
-                        floors = new ArrayList((int) dis.read());
+                        floors = new ArrayList((int) dis.readInt());
                         nextJun++;
-                        amointJun = (int) dis.read();
+                        amointJun = (int) dis.readInt();
                         break;
                         
                     case 2:
                         if (amointJun != 0){
-                            junction.setAmountRoom((int) dis.read());
+                            junction.setAmountRoom((int) dis.readInt());
                             amointJun--;
                             nextJun++;  
                         }
@@ -73,7 +74,7 @@ public class Buildings {
                         break;
                         
                     case 3:
-                        junction.setArea((int) dis.read());
+                        junction.setArea((int) dis.readInt());
                         nextJun = 2;
                         floors.add(junction);
                         break;
@@ -85,22 +86,16 @@ public class Buildings {
     return  (Building) building;
     }
     
-    public static void writeBuilding (Building building, Writer in){
-        
-        try {
-            in.write(building.getTotalAmountFloor());
+    public static void writeBuilding (Building building, Writer oin){
+        PrintWriter in = new PrintWriter(oin);
+        in.write(building.getTotalAmountFloor());
+        for(Floor f : building.getMassiveFloors()){
+            in.write(f.getAmountJunctionsOnFloor());
             
-            for(Floor f : building.getMassiveFloors()){
-                in.write(f.getAmountJunctionsOnFloor());
-            
-                for(Space s: f.getMassiveJunction()){
-                   in.write(s.getAmountRoom());
-                   in.write(s.getArea());
-                }
+            for(Space s: f.getMassiveJunction()){
+                in.write(s.getAmountRoom());
+                in.write(s.getArea());
             }
-        } 
-        catch (IOException ex) {
-            System.out.println(ex.getMessage());
         }
     }
     
@@ -193,9 +188,8 @@ public class Buildings {
             }
         }
     }
-
-    public static Building readBuldingFormat(){
-        Scanner scanner = new Scanner(System.in);
+    
+    public static Building readBuldingFormat(Scanner scanner){
         ArrayList<Space> floors;
         Space junction = null;
         
@@ -220,5 +214,4 @@ public class Buildings {
         
         return (Building) building;
     }      
- 
 }

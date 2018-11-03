@@ -14,5 +14,5 @@ public interface Space {
     
     int hashCode();
     
-//    Object clone() throws CloneNotSupportedException;
+    Object clone();
 }

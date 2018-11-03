@@ -1,4 +1,4 @@
-package buildingsFlats;
+package buildings.dwelling;
 
 import interfaces.Floor;
 import interfaces.Space;
@@ -114,6 +114,9 @@ public class DwellingFloor implements Floor, Serializable, Cloneable{
     
     @Override
     public Object clone(){
-        return new DwellingFloor(getMassiveJunction());
+        ArrayList<Space> arr = new ArrayList<Space>();       
+        for (int i = 0; i < flats.size(); i++)
+            arr.add((Space)flats.get(i).clone());
+        return new DwellingFloor(arr);  
     }
 }

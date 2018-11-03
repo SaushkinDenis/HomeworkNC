@@ -1,4 +1,4 @@
-package buildingsOffices;
+package buildings.offices;
 
 import interfaces.Floor;
 import interfaces.Space;
@@ -114,6 +114,9 @@ public class OfficeFloor implements Floor, Serializable, Cloneable{
     
     @Override
     public Object clone(){
-        return new OfficeFloor(getMassiveJunction());
+        ArrayList<Space> arr = new ArrayList<Space>();
+        for (int i = 0; i < offices.size(); i++)
+            arr.add((Space)offices.get(i).clone());
+        return new OfficeFloor(arr); 
     }
 }

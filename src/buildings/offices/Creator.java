@@ -1,4 +1,4 @@
-package buildingsOffices;
+package buildings.offices;
 
 import static homework4.Buildings.deserializeBuilding;
 import static homework4.Buildings.inputBuilding;
@@ -233,16 +233,15 @@ public class Creator {
 //        }
 //
 // ---------------- writeBuidingFormat (Writer out)--------------
-        try (FileOutputStream out = new FileOutputStream("out")){
-            writeBuidingFormat(dwelling, out);
-        }
-        catch (FileNotFoundException ex) {
-            System.out.println(ex.getMessage());
-        }
-        catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
-         
+//        try (BufferedWriter out = new BufferedWriter(new FileWriter("out"))){
+//            writeBuidingFormat(dwelling, out);
+//        }
+//        catch (FileNotFoundException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//        catch (IOException ex) {
+//            System.out.println(ex.getMessage());
+//        }
     }
     
     static ArrayList getMassivJunction(){ // Создание рандомного массива квартир на этаже

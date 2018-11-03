@@ -30,5 +30,5 @@ public interface Building {
     
     ArrayList getSortMassiveAreaJunction();
     
-//    Object clone() throws CloneNotSupportedException;
+    Object clone();
 }

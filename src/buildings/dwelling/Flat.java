@@ -1,4 +1,4 @@
-package buildingsFlats;
+package buildings.dwelling;
 
 import interfaces.Space;
 

@@ -1,4 +1,4 @@
-package buildingsFlats;
+package buildings.offices;
 
 import interfaces.Building;
 import interfaces.Floor;
@@ -7,18 +7,18 @@ import interfaces.Space;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Dwelling implements Building, Serializable, Cloneable{
+public class OfficeBuild implements Building, Serializable, Cloneable{
 
-    ArrayList<Floor> dwellingFloors;
+    ArrayList<Floor> dwellingFloors; 
     
-    public Dwelling(int amountFloors, ArrayList amountFlatsOnFloors){
+    public OfficeBuild(int amountFloors, ArrayList amountOfficesOnFloors){
         this.dwellingFloors = new ArrayList(amountFloors);
     }
     
-    public Dwelling(ArrayList<Floor> dwellingFloors){
+    public OfficeBuild(ArrayList<Floor> dwellingFloors){
         this.dwellingFloors = dwellingFloors;
-    } 
-    
+    }
+   
     @Override
     public int getTotalAmountFloor(){
         return this.dwellingFloors.size();
@@ -26,20 +26,20 @@ public class Dwelling implements Building, Serializable, Cloneable{
     
     @Override
     public int getTotalAmountJunction(){
-        int totalAmountFlats = 0; 
+        int totalAmountOffices = 0; 
         for (int i = 0; i <= getTotalAmountFloor()-1; i++){
-            totalAmountFlats += this.dwellingFloors.get(i).getAmountJunctionsOnFloor();
+            totalAmountOffices += this.dwellingFloors.get(i).getAmountJunctionsOnFloor();
         }
-        return totalAmountFlats;  
+        return totalAmountOffices;  
     }
     
     @Override
     public int getTotalAreaJunction(){
-        int totalAreaFlats = 0; 
+        int totalAreaOffices = 0; 
         for (int i = 0; i <= getTotalAmountFloor()-1; i++){
-            totalAreaFlats += this.dwellingFloors.get(i).getTotalAreaJunctionOnFloor();
+            totalAreaOffices += this.dwellingFloors.get(i).getTotalAreaJunctionOnFloor();
         }
-        return totalAreaFlats;  
+        return totalAreaOffices;  
     }
     
     @Override
@@ -70,34 +70,34 @@ public class Dwelling implements Building, Serializable, Cloneable{
     }
     
     @Override
-    public Space getJunctionInBuild(int findNumberFlatInBuild) throws SpaceIndexOutOfBoundsException {
-        int numberFlatInBuild = 0;
-        Space findFlat = new Flat();
+    public Space getJunctionInBuild(int findNumberJunctionInBuild) throws SpaceIndexOutOfBoundsException {
+        int numberOfficeInBuild = 0;
+        Space findFlat = new Office();
         boolean flag = true;
         for(Floor df: this.dwellingFloors){            
             for(Space f: df.junction){
-                numberFlatInBuild++;
-                if (numberFlatInBuild == findNumberFlatInBuild){
+                numberOfficeInBuild++;
+                if (numberOfficeInBuild == findNumberJunctionInBuild){
                     findFlat = f;
                     flag = false;
                     break;
                 }
             }
         }
-        if(flag) throw new SpaceIndexOutOfBoundsException("Подъезд.Получение: Квартира с таким номером не существует", findNumberFlatInBuild);
+        if(flag) throw new SpaceIndexOutOfBoundsException("Подъезд.Получение: Квартира с таким номером не существует", findNumberJunctionInBuild);
         return findFlat;
     }
     
     @Override
     public void setJunctionInBuild(int numberJunctionInBuild, Space flat) throws SpaceIndexOutOfBoundsException{
-        int findNumberFlatInBuild = 0, numberFloor = 0, i = 0;
+        int findNumberOfficeInBuild = 0, numberFloor = 0, i = 0;
         Floor findDf = null;
         boolean flag = true;
         for(Floor df: this.dwellingFloors){   
             i++;
             for(Space f: df.junction){
                 numberJunctionInBuild++;
-                if (findNumberFlatInBuild == numberJunctionInBuild){
+                if (findNumberOfficeInBuild == numberJunctionInBuild){
                     findDf = df;
                     numberFloor = i;
                     flag = false;
@@ -106,22 +106,22 @@ public class Dwelling implements Building, Serializable, Cloneable{
             }        
         }
         
-        if(flag) throw new SpaceIndexOutOfBoundsException("Подъезд.Изменение: Квартира с таким номером не существует", findNumberFlatInBuild);
+        if(flag) throw new SpaceIndexOutOfBoundsException("Подъезд.Изменение: Квартира с таким номером не существует", findNumberOfficeInBuild);
         findDf.addJunction(numberJunctionInBuild, flat);
         this.dwellingFloors.set(numberFloor, findDf);
     }
     
     @Override
     public void addJunctionInBuild(int nextNumberJunctionInBuild, Space flat) throws SpaceIndexOutOfBoundsException{
-        int numberFlatInBuild = 0, numberFloor = 0, i = 0, newNumberFlat = 0;
+        int numberFlatInBuild = 0, numberFloor = 0, i = 0, newNumberOffice = 0;
         Floor findDf = null;
         boolean flag = true;
         for(Floor df: this.dwellingFloors){   
             i++;
-            newNumberFlat = 0;
+            newNumberOffice = 0;
             for(Space f: df.junction){
                 numberFlatInBuild++;
-                newNumberFlat++;
+                newNumberOffice++;
                 if (numberFlatInBuild <= nextNumberJunctionInBuild){
                     findDf = df;
                     numberFloor = i;
@@ -130,20 +130,20 @@ public class Dwelling implements Building, Serializable, Cloneable{
             }        
         }
         if(flag) throw new SpaceIndexOutOfBoundsException("Подъезд.Создание: Квартира с данным номером отсутствует ", nextNumberJunctionInBuild);
-        findDf.addJunction(newNumberFlat-1, flat);
-        this.dwellingFloors.set(numberFloor-1, findDf);
+        findDf.addJunction(newNumberOffice - 1, flat);
+        this.dwellingFloors.set(numberFloor - 1, findDf);
     }
     
     @Override
     public void delJunctionInBuild(int nextNumberJunctionInBuild) throws SpaceIndexOutOfBoundsException{
-        int numberFlatInBuild = 0, numberFloor = 0, i = 0;
+        int numberOfficeInBuild = 0, numberFloor = 0, i = 0;
         Floor findDf = null;
          boolean flag = false;
         for(Floor df: this.dwellingFloors){   
             i++;
             for(Space f: df.junction){
-                numberFlatInBuild++;
-                if (numberFlatInBuild <= nextNumberJunctionInBuild){
+                numberOfficeInBuild++;
+                if (numberOfficeInBuild <= nextNumberJunctionInBuild){
                     findDf = df;
                     numberFloor = i;
                     flag = true;
@@ -158,51 +158,51 @@ public class Dwelling implements Building, Serializable, Cloneable{
     @Override
     public Space getBestSpace(){
         int bestArea = 0;
-        Space findFlat = new Flat();
+        Space findOffice = new Office();
 
         for(int i = 0; i <= this.dwellingFloors.size() - 1; i++){
             for(int j = 0; j <= this.dwellingFloors.get(i).getAmountJunctionsOnFloor() - 1; j++){
                 int area = this.dwellingFloors.get(i).getJunction(j).getArea();
                 if (area >= bestArea){
                 bestArea = area;
-                findFlat = this.dwellingFloors.get(i).getJunction(j);
+                findOffice = this.dwellingFloors.get(i).getJunction(j);
             }
         }
                
         }
-        return findFlat;
+        return findOffice;
     }
 
     @Override
     public ArrayList getSortMassiveAreaJunction(){
-        ArrayList<Integer> sortAreaFlats = new ArrayList();
+        ArrayList<Integer> sortAreaOffices = new ArrayList();
         boolean flag = true;
         int change;
         for(int i = 0; i <= this.dwellingFloors.size() - 1; i++){
             for(int j = 0; j <= this.dwellingFloors.get(i).getAmountJunctionsOnFloor() - 1; j++){
-                sortAreaFlats.add(this.dwellingFloors.get(i).getJunction(j).getArea());
+                sortAreaOffices.add(this.dwellingFloors.get(i).getJunction(j).getArea());
             }   
         }   
         int i = 0;
         while(flag){
             flag = false;
-            for(i  = 0; i < sortAreaFlats.size() - 1; i++){
-                if(sortAreaFlats.get(i) < sortAreaFlats.get(i + 1)){
-                    change = sortAreaFlats.get(i);
-                    sortAreaFlats.set(i, sortAreaFlats.get(i + 1));
-                    sortAreaFlats.set(i+1, change);
+            for(i  = 0; i < sortAreaOffices.size() - 1; i++){
+                if(sortAreaOffices.get(i) < sortAreaOffices.get(i + 1)){
+                    change = sortAreaOffices.get(i);
+                    sortAreaOffices.set(i, sortAreaOffices.get(i + 1));
+                    sortAreaOffices.set(i+1, change);
                     flag = true;
                 }
 
             }
         }
-        return sortAreaFlats;
+        return sortAreaOffices;
     }
-    
+
     @Override
     public String toString(){
         StringBuffer junction = new StringBuffer();
-        junction.append("Dwelling");
+        junction.append("OfficeBuilding");
         junction.append(" [");
         junction.append(this.getTotalAmountFloor());
         junction.append(", ");
@@ -218,7 +218,7 @@ public class Dwelling implements Building, Serializable, Cloneable{
     
     @Override
     public boolean equals(Object object){
-        return ((Dwelling)object).dwellingFloors == this.dwellingFloors;
+        return ((OfficeBuild)object).dwellingFloors == this.dwellingFloors;
     }
     
     @Override
@@ -233,6 +233,9 @@ public class Dwelling implements Building, Serializable, Cloneable{
     
     @Override
     public Object clone(){
-        return new Dwelling(getMassiveFloors());
+        ArrayList<Floor> arr = new ArrayList<Floor>();       
+        for (int i = 0; i < dwellingFloors.size(); i++)
+            arr.add((Floor)dwellingFloors.get(i).clone());
+        return new OfficeBuild(arr);  
     }
 }   
